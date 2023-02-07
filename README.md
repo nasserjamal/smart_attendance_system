@@ -72,4 +72,3 @@ Data Model
 - As a administrator, I want to be able to generate reports on the attendance of all students, so that I can track overall attendance patterns and identify areas for improvement.
 - As a teacher, I want to be able to add new students to the system easily, so that I can keep the student database up to date.
 - As a student, I want the system to provide instant feedback on whether my attendance has been recorded or not, so that I can ensure my attendance is being recorded accurately.
-
