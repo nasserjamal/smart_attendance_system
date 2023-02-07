@@ -5,22 +5,22 @@ Nasser Jamal: Backend developer. Very good with backends
 Dhulkifli Abbas: Frontend developer. Very good with frontends
 ## Technologies
 List of technologies necessary to complete the project:
-Face detection and recognition libraries: OpenCV, Dlib, and/or Face-API.js
-Programming languages: Python and/or JavaScript
-Platforms: Windows, Linux, or MacOS
-Frameworks: TensorFlow and/or Keras
-Hardware: Webcam, Raspberry Pi, or similar device
-Books and resources: "Mastering OpenCV 4 with Python" by Alberto Fernández Villán and Prateek Joshi, "Deep Learning for Computer Vision" by Adrian Rosebrock, and online tutorials and documentation for the chosen technologies.
-Option 1: Face detection and recognition libraries:
-Chosen technology: OpenCV
-Alternate option: Dlib
-Trade-offs: OpenCV has a wider range of functions and is more user-friendly, but Dlib has a smaller footprint and is faster for certain tasks.
-Decision: OpenCV was chosen for its user-friendliness and wider range of functions, as it would make it easier for the team to implement and test various face detection and recognition techniques.
-Option 2: Programming languages:
-Chosen technology: Python
-Alternate option: JavaScript
-Trade-offs: Python is a more versatile language with a larger library of machine learning and computer vision libraries. JavaScript is a more common web programming language and can be used in the browser.
-Decision: Python was chosen for its versatility and larger library of machine learning and computer vision libraries, as it would make it easier for the team to implement and test various face detection and recognition techniques. JavaScript was considered as an alternate option, but ultimately not chosen because the project would not require browser-based functionality.
+* Face detection and recognition libraries: OpenCV, Dlib, and/or Face-API.js
+* Programming languages: Python and/or JavaScript
+* Platforms: Windows, Linux, or MacOS
+* Frameworks: TensorFlow and/or Keras
+* Hardware: Webcam, Raspberry Pi, or similar device
+* Books and resources: "Mastering OpenCV 4 with Python" by Alberto Fernández Villán and Prateek Joshi, "Deep Learning for Computer Vision" by Adrian Rosebrock, and online tutorials and documentation for the chosen technologies.
+* Option 1: Face detection and recognition libraries:
+  * Chosen technology: OpenCV
+  * Alternate option: Dlib
+  * Trade-offs: OpenCV has a wider range of functions and is more user-friendly, but Dlib has a smaller footprint and is faster for certain tasks.
+  * Decision: OpenCV was chosen for its user-friendliness and wider range of functions, as it would make it easier for the team to implement and test various face detection and recognition techniques.
+* Option 2: Programming languages:
+  * Chosen technology: Python
+  * Alternate option: JavaScript
+  * Trade-offs: Python is a more versatile language with a larger library of machine learning and computer vision libraries. JavaScript is a more common web programming language and can be used in the browser.
+  * Decision: Python was chosen for its versatility and larger library of machine learning and computer vision libraries, as it would make it easier for the team to implement and test various face detection and recognition techniques. JavaScript was considered as an alternate option, but ultimately not chosen because the project would not require browser-based functionality.
 ## Challenge
 The problem the Portfolio Project is intended to solve is to create an attendance system that uses face detection and recognition technology to accurately track attendance in a fast and efficient manner. The current manual attendance system is time-consuming and prone to errors, and the use of face recognition technology aims to automate the process and improve accuracy.
 The Portfolio Project will not solve the problem of identifying individuals who try to cheat the system by using someone else's face, although the system will have some built-in measures to detect and prevent that.
