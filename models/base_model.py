@@ -1,7 +1,10 @@
 #!/usr/bin/python3
 """Contains BaseModel class"""
-from sqlalchemy.ext.declarative import declarative_base
 
+import models
+from os import getenv
+import sqlalchemy
+from sqlalchemy.ext.declarative import declarative_base
 Base = declarative_base()
 
 
