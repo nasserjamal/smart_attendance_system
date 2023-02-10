@@ -8,7 +8,7 @@ from models.sessions import Sessions
 from models.attendance import Attendance
 from models.students import Students
 
-#create new student
+# #create new student
 # student1 = Students()
 # student1.name = 'Dhulkifli'
 # student1.student_id = 1
@@ -21,9 +21,7 @@ from models.students import Students
 # student3.name = 'Pigabuff Al Kindii'
 # student3.student_id = 3
 # student3.reg_no = 'EC/03/18'
-student4 = Students()
-student4.name = 'Bolton'
-student4.reg_no = 'Bithwa/05/18'
+# student4.reg_no = 'Bithwa/05/18'
 
 # #create new session
 # session1 = Sessions()
@@ -32,19 +30,22 @@ student4.reg_no = 'Bithwa/05/18'
 # session1.start_time = time(9, 0)
 # session1.end_time = time(10, 0)
 
-#create new attendance
-attendance3 = Attendance()
-attendance3.student_id = 3
-attendance3.session_id = 1
-attendance3.start_time = time(9, 0)
-attendance3.end_time = time(10, 0)
-attendance3.id = 3
+# #create new attendance
+# attendance3 = Attendance()
+# attendance3.student_id = 3
+# attendance3.session_id = 1
+# attendance3.start_time = time(9, 0)
+# attendance3.end_time = time(10, 0)
+# attendance3.id = 3
 
 
 # models.storage.reload()
-models.storage.new(student4)
+# models.storage.new(student4)
 # models.storage.new(session1)
 # models.storage.new(attendance3)
 # models.storage.save()
-models.storage.delete(student4)
-models.storage.save()
+# models.storage.save()
+# models.storage.fetch_and_delete(Students, 'student_id', 6)
+# print(student.session_id)
+# students_list = models.storage.all(Students, 'name')
+# print(students_list)
