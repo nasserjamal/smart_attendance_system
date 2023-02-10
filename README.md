@@ -1,8 +1,9 @@
 # Smart Attendance System
 Track attendance with ease and accuracy using face recognition.
 ## Team
-Nasser Jamal: Backend developer. Very good with backends
-Dhulkifli Abbas: Frontend developer. Very good with frontends
+* Nasser Jamal: Backend developer. Very good with apis.
+* Dhulkifli Abbas: Frontend developer. Very good with databases.
+* Salim Hanzwani: Frontend developer
 ## Technologies
 List of technologies necessary to complete the project:
 * Face detection and recognition libraries: OpenCV, Dlib, and/or Face-API.js
