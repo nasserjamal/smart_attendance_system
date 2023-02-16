@@ -14,6 +14,7 @@ class Sessions(BaseModel, Base):
     name = Column(String(50))
     start_time = Column(Time)
     end_time = Column(Time)
+    classroom = Column(String(50))
 
     def __init__(self, *args, **kwargs):
         """Instantiation for Sessions class"""

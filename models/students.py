@@ -13,6 +13,11 @@ class Students(BaseModel, Base):
     student_id = Column(Integer, primary_key=True, nullable=False)
     name = Column(String(50))
     reg_no = Column(String(50))
+    gender = Column(String(50))
+    phone_no = Column(String(50))
+    year_of_study = Column(Integer)
+    department = Column(String(50))
+    course = Column(String(50))
 
     def __init__(self, *args, **kwargs):
         """Instantiation for Students class"""
