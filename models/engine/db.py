@@ -71,6 +71,6 @@ class DBStorage:
         return objct_list
 
     def fetch_and_delete(self, cls, fieldname, value):
-        """Combines the get and delete method to fetch and delete at one go"""
+        """Combines the get and delete method to fetch and delete in one go"""
         objct = self.get(cls, fieldname, value)
         self.delete(objct)
