@@ -13,3 +13,10 @@ class BaseModel:
     def __init__(self, *args, **kwargs):
         """Initialization of the BaseModel class"""
         pass
+
+    def get_json(self, *args):
+        data = {}
+        for arg in args:
+            if hasattr(self, arg):
+                data[arg] = getattr(self, arg)
+        return json.dumps(data)
