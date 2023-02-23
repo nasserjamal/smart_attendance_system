@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 """Contains BaseModel class"""
 
+import json
 import models
 from os import getenv
 import sqlalchemy
