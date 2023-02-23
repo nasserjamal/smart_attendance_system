@@ -66,3 +66,6 @@ models.storage.new(session1)
 # print(student.session_id)
 # students_list = models.storage.all(Students, 'name')
 # print(students_list)
+
+
+# MYSQL_USER=smart_attendance_dev MYSQL_PWD=12345 MYSQL_HOST=localhost MYSQL_DB=smart_attendance ./testfile.py
