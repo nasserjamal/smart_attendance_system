@@ -20,4 +20,4 @@ class BaseModel:
         for arg in args:
             if hasattr(self, arg):
                 data[arg] = getattr(self, arg)
-        return json.dumps(data)
+        return data

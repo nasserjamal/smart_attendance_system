@@ -62,8 +62,12 @@ class DBStorage:
             getattr(cls, fieldname) == value).first()
         return objct
 
+    def get_all(self, cls):
+        """Returns a list of objects based on class"""
+        return self.__session.query(cls).all()
+    
     def all(self, cls, fieldname):
-        """Returns a list of objects based on class and fieldname"""
+        """Returns a list containing data based on class and fieldname"""
         objct_list = []
         objcts = self.__session.query(cls)
         for objct in objcts:
