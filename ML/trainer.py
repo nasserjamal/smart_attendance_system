@@ -4,27 +4,29 @@ from ML import face_cascade, faces_csv, trained_model, recognizer
 import math
 
 scale = 300
+scaleFactor=1.1
+minNeighbors=5
 
-def face_to_csv(path, id):
+def face_to_csv(path, id, img_data=None):
     """
     Detects faces in an image and Converts the faces to a numpy array then stores it in a csv file
     Args: 
         img: Path to the image
     returns false if no face was found, otherwise returns true
     """
-    img = cv2.imread(path)
+    if img_data.all() == None:
+        img = cv2.imread(path)
+    else:
+        img = img_data
     if img is None:
-        print("Error: Could not find the image. Check the path to the image passed")
-        return False
+        return False, "Error! Could not open the image"
     if type(id) is not int:
-        print("Id must be an int")
-        return False
+        return False, "Id must be an int"
 
     img_gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-    faces = face_cascade.detectMultiScale(img_gray, scaleFactor=1.5, minNeighbors=5)
+    faces = face_cascade.detectMultiScale(img_gray, scaleFactor=scaleFactor, minNeighbors=minNeighbors)
     if len(faces) == 0:
-        print("No faces detected")
-        return False
+        return False, "No faces detected"
     for x, y, w, h in faces:
         roi = img_gray[y:y+h, x:x+w]
     roi = scale_roi(roi)
@@ -34,6 +36,7 @@ def face_to_csv(path, id):
         flattened_faces = np.append(id, flattened_faces)
         flattened_faces = np.append(flattened_faces, '\n')
         flattened_faces.tofile(myFile, sep=",", format='%s')
+    return True, "success"
 
 
 def train_model():
@@ -66,14 +69,17 @@ def show_roi(path):
         return False
 
     img_gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-    faces = face_cascade.detectMultiScale(img_gray, scaleFactor=1.3, minNeighbors=5)
+    faces = face_cascade.detectMultiScale(img_gray, scaleFactor=scaleFactor, minNeighbors=minNeighbors)
+    print(f"No of faces is {len(faces)}")
     if len(faces) == 0:
         print("No faces detected")
         return False
+    i = 0
     for x, y, w, h in faces:
         roi = img_gray[y:y+h, x:x+w]
         roi = scale_roi(roi)
-        cv2.imshow("Region of interest", roi)
+        cv2.imshow(f"Region of interest{i}", roi)
+        i=i+1
     cv2.waitKey(9000)
 
 
@@ -92,7 +98,7 @@ def realtime_facedetect():
     while True:
         ret, frame = cap.read()
         gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
-        faces = face_cascade.detectMultiScale(gray, 1.3, 5)
+        faces = face_cascade.detectMultiScale(gray, scaleFactor=scaleFactor, minNeighbors=minNeighbors)
         for (x, y, w, h) in faces:
             cv2.rectangle(frame, (x, y), (x+w, y+h), (255, 0, 0), 2)
         cv2.imshow('Frame', frame)
@@ -156,6 +162,24 @@ def realtime_faceregistration():
     cv2.destroyAllWindows()
 
 
+def has_face(img_data=None, path=""):
+    if img_data.all() == None:
+        img = cv2.imread(path)
+    else:
+        img = img_data
+    if img is None:
+        return False, "Invalid image"
+    recognizer.read(trained_model)
+    img_gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+    faces = face_cascade.detectMultiScale(img_gray, scaleFactor=scaleFactor, minNeighbors=minNeighbors)
+    if len(faces) == 0:
+        return False, "No face detected"
+    if len(faces) == 1:
+        return True, "Image detected"
+    else:
+        return False, f"{len(faces)} faces detected"
+
+
 def get_faceid(path):
     """
     Returns an array of tuples containing face id and position of face detected
@@ -168,7 +192,7 @@ def get_faceid(path):
     result = []
     recognizer.read(trained_model)
     img_gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-    faces = face_cascade.detectMultiScale(img_gray, scaleFactor=1.5, minNeighbors=5)
+    faces = face_cascade.detectMultiScale(img_gray, scaleFactor=scaleFactor, minNeighbors=minNeighbors)
     if len(faces) == 0:
         print("No faces detected")
         return False

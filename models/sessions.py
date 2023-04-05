@@ -3,18 +3,20 @@
 
 import models
 from models.base_model import Base, BaseModel
-import sqlalchemy
-from sqlalchemy import Column, Integer, String, Time
+from sqlalchemy.orm import relationship
+from sqlalchemy import Column, ForeignKey, Integer, String, Time
 
 
 class Sessions(BaseModel, Base):
     """Representation of class Sessions"""
     __tablename__ = 'sessions'
-    session_id = Column(Integer, primary_key=True, nullable=False)
+    id = Column(Integer, primary_key=True, nullable=False)
     name = Column(String(50))
     start_time = Column(Time)
     end_time = Column(Time)
-    classroom = Column(String(50))
+    camera_id = Column(Integer, ForeignKey('cameras.id'))
+    camera = relationship("Cameras", back_populates="sessions")
+    attendances = relationship("Attendance", back_populates="session")
 
     def __init__(self, *args, **kwargs):
         """Instantiation for Sessions class"""

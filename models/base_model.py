@@ -2,6 +2,7 @@
 """Contains BaseModel class"""
 
 import json
+import uuid
 import models
 from os import getenv
 import sqlalchemy
@@ -13,7 +14,10 @@ class BaseModel:
     """Base class from which all other classes inherit"""
     def __init__(self, *args, **kwargs):
         """Initialization of the BaseModel class"""
-        pass
+        if kwargs:
+            for key, value in kwargs.items():
+                if key != "__class__":
+                    setattr(self, key, value)
 
     def get_json(self, *args):
         data = {}
@@ -21,3 +25,11 @@ class BaseModel:
             if hasattr(self, arg):
                 data[arg] = getattr(self, arg)
         return data
+    
+
+    def update_object(self, **kwargs):
+        if kwargs:
+            for key, value in kwargs.items():
+                if key != "__class__" and key != "id":
+                    setattr(self, key, value)
+

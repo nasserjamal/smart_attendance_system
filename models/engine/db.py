@@ -5,7 +5,7 @@ from models.base_model import BaseModel, Base
 from os import getenv
 import sqlalchemy
 from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker, scoped_session
+from sqlalchemy.orm import sessionmaker, scoped_session, joinedload
 
 
 class DBStorage:
@@ -15,10 +15,10 @@ class DBStorage:
 
     def __init__(self, *args, **kwargs):
         """Instantiation for class DBStorage"""
-        MYSQL_USER = getenv('MYSQL_USER')
-        MYSQL_PWD = getenv('MYSQL_PWD')
-        MYSQL_HOST = getenv('MYSQL_HOST')
-        MYSQL_DB = getenv('MYSQL_DB')
+        MYSQL_USER = "smart_attendance_dev"# getenv('MYSQL_USER')
+        MYSQL_PWD = "12345"# getenv('MYSQL_PWD')
+        MYSQL_HOST = "localhost"# getenv('MYSQL_HOST')
+        MYSQL_DB = "smart_attendance"# getenv('MYSQL_DB')
         self.__engine = create_engine('mysql+mysqldb://{}:{}@{}/{}'.
                                       format(MYSQL_USER,
                                              MYSQL_PWD,
@@ -62,17 +62,21 @@ class DBStorage:
             getattr(cls, fieldname) == value).first()
         return objct
 
-    def get_all(self, cls):
+    def get_all(self, *cls):
         """Returns a list of objects based on class"""
-        return self.__session.query(cls).all()
+        query = self.__session.query(*cls)
+        for i in range(len(cls) - 1):
+            query = query.join(cls[i+1])
+        return query.all()
     
     def all(self, cls, fieldname):
-        """Returns a list containing data based on class and fieldname"""
+        """Returns a list containing data i.e not the entire class based on class and fieldname"""
         objct_list = []
         objcts = self.__session.query(cls)
         for objct in objcts:
             objct_list.append(getattr(objct, fieldname))
         return objct_list
+    
 
     def fetch_and_delete(self, cls, fieldname, value):
         """Combines the get and delete method to fetch and delete in one go"""
