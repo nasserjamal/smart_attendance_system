@@ -4,7 +4,7 @@
 import models
 from models.base_model import BaseModel, Base
 from sqlalchemy.orm import relationship
-from sqlalchemy import Column, ForeignKey, Integer, Time
+from sqlalchemy import Column, ForeignKey, Integer, DateTime
 
 
 class Attendance(BaseModel, Base):
@@ -13,8 +13,8 @@ class Attendance(BaseModel, Base):
     id = Column(Integer, primary_key=True, nullable=False)
     student_id = Column(Integer, ForeignKey('students.id'))
     session_id = Column(Integer, ForeignKey('sessions.id'))
-    start_time = Column(Time)
-    end_time = Column(Time)
+    start_time = Column(DateTime)
+    end_time = Column(DateTime)
     student = relationship('Students', back_populates='attendances')
     session = relationship("Sessions", back_populates="attendances")
 

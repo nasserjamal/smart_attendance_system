@@ -4,7 +4,7 @@
 from models.base_model import BaseModel, Base
 from os import getenv
 import sqlalchemy
-from sqlalchemy import create_engine
+from sqlalchemy import create_engine, MetaData
 from sqlalchemy.orm import sessionmaker, scoped_session, joinedload
 
 
@@ -47,7 +47,30 @@ class DBStorage:
         Session = scoped_session(sess_factory)
         self.__session = Session
 
-    def get(self, cls, fieldname, value):
+    def get(self, cls, fieldname="", value="", **filters):
+        """
+        Fetches a single object based on class, fieldname and value
+        Parameters:
+            cls: Name of the table to access
+            fieldname(str): Name of the Column to be used
+            value: Value to be used as the filter condition
+        Usage:
+            student1 = models.storage.get(Students, 'student_id', 1)
+            print(student.name) # or perform any other operation
+        """
+        print(f"Length is {len(filters)}")
+        if len(filters) != 0:
+            query = self.__session.query(cls)
+            for fieldname, value in filters.items():
+                query = query.filter(getattr(cls, fieldname) == value)
+            objct = query.first()
+            return objct
+
+        objct = self.__session.query(cls).filter(
+            getattr(cls, fieldname) == value).first()
+        return objct
+    
+    def get_all_greater(self, cls, fieldname, value):
         """
         Fetches a single object based on class, fieldname and value
         Parameters:
@@ -59,7 +82,7 @@ class DBStorage:
             print(student.name) # or perform any other operation
         """
         objct = self.__session.query(cls).filter(
-            getattr(cls, fieldname) == value).first()
+            getattr(cls, fieldname) > value).all()
         return objct
 
     def get_all(self, *cls):
@@ -82,3 +105,19 @@ class DBStorage:
         """Combines the get and delete method to fetch and delete in one go"""
         objct = self.get(cls, fieldname, value)
         self.delete(objct)
+
+    def drop_all_tables(self):
+        """Delete all data from all tables in the database"""
+        # Get all tables
+        metadata = MetaData(self.__engine)
+        metadata.reflect()
+
+        # Begin a new transaction
+        self.__session.begin()
+
+        # Iterate through all tables and delete data
+        for table in reversed(metadata.sorted_tables):
+            self.__session.execute(table.delete())
+        # Commit the transaction
+        self.__session.commit()
+

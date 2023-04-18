@@ -4,7 +4,7 @@
 import models
 from models.base_model import Base, BaseModel
 from sqlalchemy.orm import relationship
-from sqlalchemy import Column, ForeignKey, Integer, String, Time
+from sqlalchemy import Column, ForeignKey, Integer, String, DateTime
 
 
 class Sessions(BaseModel, Base):
@@ -12,8 +12,8 @@ class Sessions(BaseModel, Base):
     __tablename__ = 'sessions'
     id = Column(Integer, primary_key=True, nullable=False)
     name = Column(String(50))
-    start_time = Column(Time)
-    end_time = Column(Time)
+    start_time = Column(DateTime)
+    end_time = Column(DateTime)
     camera_id = Column(Integer, ForeignKey('cameras.id'))
     camera = relationship("Cameras", back_populates="sessions")
     attendances = relationship("Attendance", back_populates="session")

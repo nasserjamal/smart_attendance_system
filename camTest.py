@@ -5,12 +5,12 @@ import os
 app = Flask(__name__)
 
 
-@app.route('/init', methods=['POST'])
+@app.route('/cam/init', methods=['POST'])
 def camInit():
     return Response(status=200)
 
 
-@app.route('/upload', methods=['POST'])
+@app.route('/cam/upload', methods=['POST'])
 def receive_image():
     print("Now processing the request")
     # Get the image data from the request
@@ -32,6 +32,6 @@ def receive_image():
     return Response(status=200)
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=80)
+    app.run(host='0.0.0.0', port=5000)
 
     # SELECT sessions.id AS sessions_id, sessions.name AS sessions_name, sessions.start_time AS sessions_start_time, sessions.end_time AS sessions_end_time, sessions.camera_id AS sessions_camera_id, cameras.id AS cameras_id, cameras.name AS cameras_name, cameras.ip AS cameras_ip FROM sessions INNER JOIN cameras ON cameras.id = sessions.camera_id

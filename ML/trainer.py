@@ -180,11 +180,14 @@ def has_face(img_data=None, path=""):
         return False, f"{len(faces)} faces detected"
 
 
-def get_faceid(path):
+def get_faceid(img_data=None, path=""):
     """
     Returns an array of tuples containing face id and position of face detected
     """
-    img = cv2.imread(path)
+    if img_data.all() == None:
+        img = cv2.imread(path)
+    else:
+        img = img_data
     if img is None:
         print("Error: Could not find the image. Check the path to the image passed")
         return False
@@ -200,7 +203,7 @@ def get_faceid(path):
         roi = img_gray[y:y+h, x:x+w]
         roi = scale_roi(roi)
         label, confidence = recognizer.predict(roi)
-        result.append((label, (x, y)))
+        result.append({"id":label, "confidence":confidence, "position":(x, y)})
     return result
 
 
